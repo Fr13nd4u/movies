@@ -26,7 +26,8 @@ const Modal: FC<IModal> = ({ title, active, setActive, children }) => {
 const ModalWrapper = styled.div<{ active: boolean }>`
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
   position: fixed;
   top: 0;
   left: 0;
@@ -45,7 +46,7 @@ const ModalContent = styled.div<{ active: boolean }>`
   border-radius: 12px;
   min-width: 400px;
   min-height: 200px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.8);
 
   transform: scale(${(props) => (props.active ? 1 : 0.5)});
   transition: transform 0.4s ease-in-out;
