@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IMovie } from "../../interfaces";
 import { addMovieFormSchema } from "./AddMovieSchema";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { addMovie } from "../../redux/movies/ActionCreators";
 
 interface IAddMovieForm {
@@ -12,6 +12,8 @@ interface IAddMovieForm {
 }
 
 const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
+  const { movies } = useAppSelector((state) => state.moviesReducer);
+
   const dispatch = useAppDispatch();
   const {
     register,
@@ -29,6 +31,10 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
     reset();
     setActive(false);
   };
+
+  // const isUnique = (title: string) => {
+  //   return title.length > 2;
+  // };
 
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
