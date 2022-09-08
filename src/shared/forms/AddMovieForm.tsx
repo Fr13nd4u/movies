@@ -12,7 +12,7 @@ interface IAddMovieForm {
 }
 
 const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
-  const { movies } = useAppSelector((state) => state.moviesReducer);
+  // const { movies } = useAppSelector((state) => state.moviesReducer);
 
   const dispatch = useAppDispatch();
   const {
@@ -40,22 +40,38 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label>Name</label>
-        <input type="text" {...register("title")} />
+        <input
+          type="text"
+          className={errors.title && "error"}
+          {...register("title")}
+        />
         {errors.title && <p>{errors.title.message}</p>}
       </div>
       <div>
         <label>Format</label>
-        <input type="text" {...register("format")} />
+        <input
+          type="text"
+          className={errors.format && "error"}
+          {...register("format")}
+        />
         {errors.format && <p>{errors.format.message}</p>}
       </div>
       <div>
         <label>Release Year</label>
-        <input type="text" {...register("year")} />
+        <input
+          type="text"
+          className={errors.year && "error"}
+          {...register("year")}
+        />
         {errors.year && <p>{errors.year.message}</p>}
       </div>
       <div>
         <label>Stars</label>
-        <input type="text" {...register("actors")} />
+        <input
+          type="text"
+          className={errors.actors && "error"}
+          {...register("actors")}
+        />
         {errors.actors && <p>{errors.actors.message}</p>}
       </div>
       <button type="submit">Submit</button>
@@ -77,6 +93,11 @@ const FormWrapper = styled.form`
     color: rgba(0, 0, 0, 0.6);
   }
 
+  .error {
+    background: #f20000;
+    border: 1px solid #f20000;
+  }
+
   label {
     line-height: 2;
     text-align: left;
@@ -84,6 +105,10 @@ const FormWrapper = styled.form`
     margin-bottom: 13px;
     margin-top: 20px;
     font-size: 18px;
+  }
+
+  p {
+    color: red;
   }
 
   button {
