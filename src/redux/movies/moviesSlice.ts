@@ -19,8 +19,8 @@ export const moviesSlice = createSlice({
     //   state.movies = action.payload;
     // },
     setMovies: (state, action: PayloadAction<IMovie[]>) => {
-      state.movies = action.payload
-      state.filteredMovies = action.payload
+      state.movies = action.payload.concat(state.movies)
+      state.filteredMovies = action.payload.concat(state.filteredMovies)
     },
   
     addMovie: (state, action: PayloadAction<IMovie>) => {
