@@ -18,6 +18,7 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
   const {
     register,
     reset,
+    clearErrors,
     handleSubmit,
     formState: { errors },
   } = useForm<IMovie>({
@@ -44,6 +45,7 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
           type="text"
           className={errors.title && "error"}
           {...register("title")}
+          onClick={() => clearErrors("title")}
         />
         {errors.title && <p>{errors.title.message}</p>}
       </div>
@@ -53,6 +55,7 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
           type="text"
           className={errors.format && "error"}
           {...register("format")}
+          onClick={() => clearErrors("format")}
         />
         {errors.format && <p>{errors.format.message}</p>}
       </div>
@@ -62,6 +65,7 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
           type="text"
           className={errors.year && "error"}
           {...register("year")}
+          onClick={() => clearErrors("year")}
         />
         {errors.year && <p>{errors.year.message}</p>}
       </div>
@@ -71,6 +75,7 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
           type="text"
           className={errors.actors && "error"}
           {...register("actors")}
+          onClick={() => clearErrors("actors")}
         />
         {errors.actors && <p>{errors.actors.message}</p>}
       </div>

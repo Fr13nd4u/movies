@@ -38,7 +38,7 @@ const ModalWrapper = styled.div<{ active: boolean }>`
 
   pointer-events: ${(props) => (props.active ? "all" : "none")};
   opacity: ${(props) => (props.active ? 1 : 0)};
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in;
 `;
 
 const ModalContent = styled.div<{ active: boolean }>`
@@ -49,7 +49,7 @@ const ModalContent = styled.div<{ active: boolean }>`
   background: rgba(0, 0, 0, 0.8);
 
   transform: scale(${(props) => (props.active ? 1 : 0.5)});
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in;
 `;
 
 const ModalTitle = styled.div`
