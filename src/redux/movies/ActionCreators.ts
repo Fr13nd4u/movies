@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { IMovie } from "../../interfaces";
 import { AppDispatch } from "../store";
 import { moviesSlice } from "./moviesSlice";

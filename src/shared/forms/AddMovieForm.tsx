@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IMovie } from "../../interfaces";
 import { addMovieFormSchema } from "./AddMovieSchema";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch } from "../../hooks/redux";
 import { addMovie } from "../../redux/movies/ActionCreators";
 
 interface IAddMovieForm {
@@ -12,12 +12,11 @@ interface IAddMovieForm {
 }
 
 const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
-  // const { movies } = useAppSelector((state) => state.moviesReducer);
-
   const dispatch = useAppDispatch();
   const {
     register,
     reset,
+    control,
     clearErrors,
     handleSubmit,
     formState: { errors },
@@ -33,10 +32,6 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
     setActive(false);
   };
 
-  // const isUnique = (title: string) => {
-  //   return title.length > 2;
-  // };
-
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -51,12 +46,22 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
       </div>
       <div>
         <label>Format</label>
-        <input
-          type="text"
-          className={errors.format && "error"}
-          {...register("format")}
-          onClick={() => clearErrors("format")}
+        <Controller
+          control={control}
+          name="format"
+          rules={{ required: "format is required" }}
+          render={({ field: { onChange } }) => (
+            <select onChange={onChange} defaultValue="">
+              <option value="" className="select-placeholder" disabled>
+                choose format
+              </option>
+              <option value="VHS">VHS</option>
+              <option value="DVD">DVD</option>
+              <option value="Blu-Ray">Blu-Ray</option>
+            </select>
+          )}
         />
+
         {errors.format && <p>{errors.format.message}</p>}
       </div>
       <div>
@@ -87,7 +92,8 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
 const FormWrapper = styled.form`
   width: 33vw;
 
-  input {
+  input,
+  select {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -96,6 +102,16 @@ const FormWrapper = styled.form`
     margin-bottom: 10px;
     background: #fff;
     color: rgba(0, 0, 0, 0.6);
+  }
+
+  option,
+  select {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .select-placeholder {
+    display: none;
   }
 
   .error {

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
-import { parseFile } from "../helpers/parseFile";
+import { parseFile } from "../shared/helpers/parseFile";
 import { useAppDispatch } from "../hooks/redux";
 import { setMovies } from "../redux/movies/ActionCreators";
 
@@ -40,6 +40,7 @@ const UploadFileWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 35px;
 
   label {
     font-size: 22px;
