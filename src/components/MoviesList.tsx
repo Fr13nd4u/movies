@@ -21,15 +21,13 @@ const MoviesList: FC = () => {
         <AddMovieForm setActive={setModalActive} />
       </Modal>
       <MoviesTitle>
-        <h1>List of movies</h1>
+        <h1>List of movies (upload: {filteredMovies.length})</h1>
         <button onClick={() => setModalActive(true)}>Add new movie</button>
       </MoviesTitle>
       <MoviesWrapper>
-        {filteredMovies
-          .filter((movie: IMovie) => movie.title !== undefined)
-          .map((movie: IMovie) => (
-            <MovieItem key={movie.id} movie={movie} />
-          ))}
+        {filteredMovies.map((movie: IMovie) => (
+          <MovieItem key={movie.id} movie={movie} />
+        ))}
       </MoviesWrapper>
     </>
   );
