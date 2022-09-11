@@ -9,9 +9,10 @@ import { addMovie } from "../../redux/movies/ActionCreators";
 
 interface IAddMovieForm {
   setActive: (item: boolean) => void;
+  setModalAddMovie: (item: boolean) => void;
 }
 
-const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
+const AddMovieForm: FC<IAddMovieForm> = ({ setActive, setModalAddMovie }) => {
   const dispatch = useAppDispatch();
   const {
     register,
@@ -30,6 +31,7 @@ const AddMovieForm: FC<IAddMovieForm> = ({ setActive }) => {
     dispatch(addMovie(data));
     reset();
     setActive(false);
+    setModalAddMovie(true);
   };
 
   return (

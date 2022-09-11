@@ -9,6 +9,7 @@ import MovieItem from "./MovieItem";
 
 const MoviesList: FC = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [modalAddMovie, setModalAddMovie] = useState(false);
   const { filteredMovies } = useAppSelector((state) => state.moviesReducer);
 
   return (
@@ -18,7 +19,22 @@ const MoviesList: FC = () => {
         active={modalActive}
         setActive={setModalActive}
       >
-        <AddMovieForm setActive={setModalActive} />
+        <AddMovieForm
+          setActive={setModalActive}
+          setModalAddMovie={setModalAddMovie}
+        />
+      </Modal>
+
+      <Modal title="" active={modalAddMovie} setActive={setModalAddMovie}>
+        <ModalAddedMovie>
+          <h3>
+            Movie{" "}
+            {filteredMovies.length > 0 &&
+              filteredMovies?.[filteredMovies.length - 1].title}{" "}
+            was added
+          </h3>
+          <button onClick={() => setModalAddMovie(false)}>OK</button>
+        </ModalAddedMovie>
       </Modal>
       <MoviesTitle>
         <h1>List of movies (upload: {filteredMovies.length})</h1>
@@ -45,6 +61,16 @@ const MoviesTitle = styled.div`
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 50px;
+`;
+
+const ModalAddedMovie = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h3 {
+    margin-bottom: 30px;
+  }
 `;
 
 export default MoviesList;

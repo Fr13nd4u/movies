@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import styled from "styled-components";
 
 interface IModal {
   title: string;
   active: boolean;
   setActive: (item: boolean) => void;
-  children: JSX.Element;
+  children: ReactNode | ReactNode[];
 }
 
 const Modal: FC<IModal> = ({ title, active, setActive, children }) => {

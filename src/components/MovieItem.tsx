@@ -1,18 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../hooks/redux";
 import { IMovie } from "../interfaces";
 import { removeMovie } from "../redux/movies/ActionCreators";
+import Modal from "../shared/Modal";
 
 interface IMovieItem {
   movie: IMovie;
 }
 
 const MovieItem: FC<IMovieItem> = ({ movie }) => {
+  const [modalActive, setModalActive] = useState(false);
   const { title, year, format, actors, id } = movie;
   const dispatch = useAppDispatch();
 
   const handleRemove = () => {
+    setModalActive(false);
     dispatch(removeMovie(id));
   };
 
@@ -30,8 +33,22 @@ const MovieItem: FC<IMovieItem> = ({ movie }) => {
           Stars: <span>{actors.join(", ")}</span>
         </h4>
 
-        <button onClick={handleRemove}>Delete</button>
+        <button onClick={() => setModalActive(true)}>Delete</button>
       </MovieBody>
+
+      <Modal
+        title="Removing the movie"
+        active={modalActive}
+        setActive={setModalActive}
+      >
+        <ModalContent>
+          <h3>Are you sure you want to delete {title}?</h3>
+          <div>
+            <button onClick={handleRemove}>Delete</button>
+            <button onClick={() => setModalActive(false)}>Cancel</button>
+          </div>
+        </ModalContent>
+      </Modal>
     </MovieWrapper>
   );
 };
@@ -82,6 +99,20 @@ const MovieBody = styled.div`
     margin-top: 15px;
     font-size: 16px;
     width: 100%;
+  }
+`;
+
+const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h3 {
+    margin-bottom: 30px;
+  }
+
+  button {
+    margin-right: 20px;
   }
 `;
 

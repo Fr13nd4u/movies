@@ -5,6 +5,7 @@ const renameKey = (obj: any, old_key: string, new_key: string) => {
 };
 
 export const parseFile = (file: string) => {
+  
   return file.split("\n\n").map((entry, index) => {
     const obj: any = {};
     obj.id = index;
@@ -14,11 +15,12 @@ export const parseFile = (file: string) => {
       const value = split[1];
       obj[key] = key === "Stars" ? value.split(", ") : value;
     });
-
+    
     renameKey(obj, "Title", "title");
     renameKey(obj, "Release Year", "year");
     renameKey(obj, "Format", "format");
     renameKey(obj, "Stars", "actors");
-    return obj;
+
+    return obj.title || obj.year || obj.format || obj.actors !== undefined ? obj : null;
   });
 };
